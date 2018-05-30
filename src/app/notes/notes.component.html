@@ -1,0 +1,31 @@
+<h2>My notes</h2>
+<ul class="notes">
+  <li *ngFor="let note of notes" (click)="onSelect(note)" [class.selected]="note === selectedNote">
+    <span class="badge">{{note.id}} {{ note.title }}
+    </span>
+    {{note.data}}
+    <button class="delete" title="delete note"
+            (click)="delete(note)">x</button>
+  </li>
+</ul>
+
+<div *ngIf="selectedNote">
+  <h2>#{{ selectedNote.id }}  {{ selectedNote.title | uppercase }} Details</h2>
+  <div>
+    <label>{{selectedNote.title}}
+      <input [(ngModel)]="selectedNote.data" />
+    </label>
+    <button (click)="update(selectedNote)">Modify</button>
+  </div>
+</div>
+
+<label>
+  <input #noteId placeholder="id"/>
+  <input #noteTitle placeholder="title"/>
+  <input #noteData placeholder="data"/>
+</label>
+<!-- (click) passes input value to add() and then clears the input -->
+<button (click)="add(noteId.value, noteTitle.value, noteData.value);">
+  Add
+</button>
+
